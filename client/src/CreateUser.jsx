@@ -6,13 +6,13 @@ function CreateUser() {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [age, setAge] = useState();
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
     const Submit = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:5000/createUser',{name, email, age}) //axios.post(link, data)
+        axios.post(`${apiUrl}/createUser`,{name, email, age}) //axios.post(link, data)
         .then(response=>{
             console.log("Done", response.data)
             navigate('/');

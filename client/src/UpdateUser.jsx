@@ -11,11 +11,11 @@ function UpdateUser() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [age, setAge] = useState("");
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/getusers/'+id)
+        axios.get(`${apiUrl}/getusers/${id}`)
         .then(result=>{console.log(result)
             setName(result.data.name)
             setEmail(result.data.email)
@@ -27,7 +27,7 @@ function UpdateUser() {
     const update = (e)=>{
         e.preventDefault();
 
-        axios.put('http://localhost:5000/updateUser/'+id, {name, email, age})
+        axios.put(`${apiUrl}/updateUser/${id}`, {name, email, age})
         .then((response=>{
             console.log(response);
             navigate('/');

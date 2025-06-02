@@ -6,15 +6,15 @@ import axios from 'axios';
 
 function Users() {
     const [users, setUsers] = useState([]);
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(()=>{
-        axios.get('http://localhost:5000/')
+        axios.get(`${apiUrl}/`)
         .then(result=> setUsers(result.data))
         .catch(err=>console.log(err));
     },[]);
 
     const handleDelete = (id)=>{
-        axios.delete('http://localhost:5000/delete/'+id)
+        axios.delete(`${apiUrl}/delete/${id}`)
         .then(result=>{console.log(result)
             window.location.reload()
         })
