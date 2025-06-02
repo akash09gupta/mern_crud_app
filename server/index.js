@@ -9,7 +9,23 @@ require('dotenv').config();
 const mongo_url = process.env.MONGO_CONN || "mongodb://localhost:27017/crud";
 const port = process.env.PORT || 5000;
 //enables cors for communicating with frontend request that is comming from different origin
-app.use(cors({origin:'http://localhost:5173'})); 
+const allowedOrigins = [
+  'http://localhost:5173',                        // for local dev
+  'https://mern-crud-app-ui-e3t5.onrender.com'   // deployed frontend URL
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow requests with no origin (like Postman or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'CORS policy does not allow access from this origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 //this is used for making data available for req.body
 app.use(express.json());
 
