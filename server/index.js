@@ -3,13 +3,17 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 const UserModel = require('./models/User');
 const app = express();
+require('dotenv').config();
 
+
+const mongo_url = process.env.MONGO_CONN || "mongodb://localhost:27017/crud";
+const port = process.env.PORT || 5000;
 //enables cors for communicating with frontend request that is comming from different origin
 app.use(cors({origin:'http://localhost:5173'})); 
 //this is used for making data available for req.body
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/crud')
+mongoose.connect(mongo_url)
 .then(()=>console.log('mongodb is connected'))
 .catch((err)=>console.log(err));
 
@@ -81,4 +85,4 @@ app.delete('/delete/:id', async (req, res)=>{
     }
 })
 
-app.listen(5000, ()=>console.log("Server running on port: 5000"));
+app.listen(port, ()=>console.log("Server running on port: ",port));
