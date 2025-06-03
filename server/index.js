@@ -10,7 +10,6 @@ const mongo_url = process.env.MONGO_CONN || "mongodb://localhost:27017/crud";
 const port = process.env.PORT || 5000;
 //enables cors for communicating with frontend request that is comming from different origin
 // app.use(cors())
-const cors = require("cors");
 
 app.use(cors({
   origin: "https://mern-crud-app-ui-e3t5.onrender.com", // ✅ frontend deployed URL
