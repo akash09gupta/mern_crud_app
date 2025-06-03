@@ -35,22 +35,30 @@ app.get('/', async (req, res)=>{
     }
 })
 
-app.post('/createUser', async (req, res)=>{
-    try {
-        const {name, email, age} = req.body;
-        const createdUser = await UserModel.create({
-            name,
-            email,
-            age
-        });
-        console.log(createdUser);
-        res.status(201).json(createdUser);
+app.post('/createUser', async (req, res) => {
+  try {
+    const { name, email, age } = req.body;
+
+    if (!name || !email || !age) {
+      return res.status(400).json({ error: "All fields are required" });
     }
-    catch (err) {
-        console.log(err);
-        res.status(500).json(err);
+
+    const createdUser = await UserModel.create({
+      name,
+      email,
+      age: Number(age)
+    });
+
+    res.status(201).json(createdUser);
+  } catch (err) {
+    console.error("Error creating user:", err);
+    if (err.name === "ValidationError") {
+      return res.status(400).json({ error: err.message });
     }
-})
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 app.get('/getusers/:id', async (req, res)=>{
     try {
