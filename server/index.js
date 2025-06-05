@@ -11,8 +11,10 @@ const port = process.env.PORT || 5000;
 //enables cors for communicating with frontend request that is comming from different origin
 // app.use(cors())
 
+const origins = ["https://mern-crud-app-4qes.onrender.com", "http://localhost:5173"];
+
 app.use(cors({
-  origin: "https://mern-crud-app-4qes.onrender.com", // ✅ frontend deployed URL
+  origin: origins, // ✅ frontend deployed URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));

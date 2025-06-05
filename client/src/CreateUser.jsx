@@ -14,9 +14,9 @@ function CreateUser() {
 
         axios.post(`${apiUrl}/createUser`,{name, email, age}) //axios.post(link, data)
         .then(response=>{
-            console.log("Done", response.data)
-        console.log(`${apiUrl}`)
+            console.log(`${apiUrl}`)
             console.log({ name, email, age }); 
+            console.log("Done", response.data)
             navigate('/');
             
         })
